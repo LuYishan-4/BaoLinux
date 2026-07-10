@@ -15,7 +15,6 @@
 #define RESET   "\033[0m"
 #define LINE    "=================================================="
 
-/* 路径配置定义 */
 #define ARCHOS_ROOT     "./archos/airootfs"
 #define WAYLAND_PATH    ARCHOS_ROOT "/usr/share/archos-wayland/configs"
 #define WAYLAND_SCRIPT  ARCHOS_ROOT "/usr/share/archos-wayland/import-wayland.sh"
@@ -23,7 +22,7 @@
 #define LOCALE_CONFIG   ARCHOS_ROOT "/etc/locale.conf"
 #define VCONSOLE_CONFIG ARCHOS_ROOT "/etc/vconsole.conf"
 
-/* UI 提示函数 */
+
 void header(const char *title) 
 {
     printf("\n");
@@ -54,7 +53,7 @@ void edit_file(const char *path)
     status_ok("Configuration updated");
 }
 
-/* ==================== 1. 软件包配置 ==================== */
+
 void setUpPackageConfig() 
 {
     header("Package Configuration");
@@ -159,7 +158,7 @@ void setUpWaylandConfig()
     }
 }
 
-/* ==================== 3. 语言与键盘本地化 ==================== */
+
 void setUpLanguageConfig() 
 {
     header("Language Configuration");
@@ -167,7 +166,7 @@ void setUpLanguageConfig()
     edit_file(VCONSOLE_CONFIG);
 }
 
-/* ==================== 主菜单与控制流 ==================== */
+
 void buildISO() 
 {
     header("Build ISO");
