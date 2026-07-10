@@ -68,7 +68,6 @@ def sync_to_archiso(packages):
         f.write("# ==========================================\n\n")
         for pkg in sorted(final_list):
             f.write(f"{pkg}\n")
-
     print("[] Package list sync and copy completed successfully!")
 
 

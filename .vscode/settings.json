@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "condition_variable": "c",
+        "future": "c",
+        "mutex": "c",
+        "shared_mutex": "c",
+        "__mutex_base": "c"
+    }
+}
