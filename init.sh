@@ -218,6 +218,14 @@ EOF
 ln -sf \
 ../import-wayland.service \
 "$TARGET_DIR/airootfs/etc/systemd/user/graphical-session.target.wants/import-wayland.service"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/pkglist.sh"
+/usr/bin/python "$SCRIPT_DIR/getSystemConfig/languageSync.py"
+/usr/bin/python "$SCRIPT_DIR/getSystemConfig/syncDesktop.py"
+/usr/bin/python "$SCRIPT_DIR/getSystemConfig/syncCookie.py"
+
+
+
 
 
 
@@ -237,4 +245,3 @@ echo "Next:"
 echo "  sudo python3 getSystemConfig/syncDesktop.py"
 echo "  sudo mkarchiso -v archos"
 echo "=================================================="
-

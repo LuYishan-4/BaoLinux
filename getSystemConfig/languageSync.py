@@ -13,15 +13,12 @@ class BaseLanguageSync:
         self.skel_dir = skel_dir
 
     def get_required_fonts(self):
-
         return []
 
     def get_input_method_configs(self):
-
         return []
 
     def get_environment_variables(self):
-
         return {}
 
 
@@ -61,9 +58,7 @@ class EnglishSync(BaseLanguageSync):
         }
 
 
-
 class BaoLinuxEnvInitializer:
-
 
     LANGUAGE_MAPPING = {
         "zh_TW": TraditionalChineseSync,
@@ -71,16 +66,13 @@ class BaoLinuxEnvInitializer:
     }
 
     def __init__(self, language_code="zh_TW"):
-
         self.base_dir = os.getcwd()
         self.airootfs_dir = os.path.join(self.base_dir, "archos", "airootfs")
         self.skel_dir = os.path.join(self.airootfs_dir, "etc", "skel")
         
-
         self._check_privileges()
         self.real_user = os.environ.get("SUDO_USER")
         self.user_home = os.path.expanduser(f"~{self.real_user}")
-
 
         if language_code not in self.LANGUAGE_MAPPING:
             print(f"[!] Unsupported language: {language_code}. Fallback to 'zh_TW'.")
@@ -93,7 +85,6 @@ class BaoLinuxEnvInitializer:
         )
 
     def _check_privileges(self):
-
         if os.geteuid() != 0:
             print("[-] Error: Please run this script with root privileges (sudo python3 ...)")
             sys.exit(1)
@@ -170,9 +161,24 @@ class BaoLinuxEnvInitializer:
         self.sync_fonts()
         self.sync_input_methods()
         self.inject_environment_variables()
-        print(f"[] Env Sync for {self.language_code} completed successfully!\n")
+        print(f"[*] Env Sync for {self.language_code} completed successfully!\n")
 
 
 if __name__ == "__main__":
-    initializer = BaoLinuxEnvInitializer(language_code="zh_TW")
+
+    local_lang = os.environ.get("LANG", "")
+    selected_lang = "zh_TW"  # 預設值
+
+    if local_lang.startswith("zh_TW"):
+        selected_lang = "zh_TW"
+    elif local_lang.startswith("en_US"):
+        selected_lang = "en_US"
+    else:
+
+        print(f"[*] Detected local LANG '{local_lang}'. Profile not explicitly matched, using default 'zh_TW'.")
+
+    print(f"[*] Local language detected: {local_lang or 'Unknown'} -> Auto-matching profile: {selected_lang}")
+
+
+    initializer = BaoLinuxEnvInitializer(language_code=selected_lang)
     initializer.run_all()
